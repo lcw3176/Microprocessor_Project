@@ -1,4 +1,4 @@
-void turn_on_led(bool isReverse, bool led_existing, int rotate_count);
+void TurnOnLed(bool isReverse, bool isPersistent, int rotateCount);
 
 void setup() {
   pinMode(22, OUTPUT);
@@ -14,36 +14,36 @@ void setup() {
 }
 
 void loop() {
-  int sw1_pushed = digitalRead(26);
-  int sw2_pushed = digitalRead(27);
-  int sw3_pushed = digitalRead(28);
-  int sw4_pushed = digitalRead(29);
+  int sw1Pushed = digitalRead(26);
+  int sw2Pushed = digitalRead(27);
+  int sw3Pushed = digitalRead(28);
+  int sw4Pushed = digitalRead(29);
   
-    if(sw1_pushed)
+    if(sw1Pushed)
     {
-      turn_on_led(false, false, 3);
+      TurnOnLed(false, false, 3);
     }
 
-    if(sw3_pushed)
+    if(sw2Pushed)
     {
-      turn_on_led(false, true, 3);
+       TurnOnLed(true, false, 2);
     }
     
-    if(sw2_pushed)
+    if(sw3Pushed)
     {
-       turn_on_led(true, false, 2);
+      TurnOnLed(false, true, 3);
     }
-
-    if(sw4_pushed)
+    
+    if(sw4Pushed)
     {
-      turn_on_led(true, true, 2);
+      TurnOnLed(true, true, 2);
     }
 }
 
 
-void turn_on_led(bool isReverse, bool led_existing, int rotate_count){
+void TurnOnLed(bool isReverse, bool isPersistent, int rotateCount){
 
-  for(int i = 0; i < rotate_count; i++)
+  for(int i = 0; i < rotateCount; i++)
   {
     if(isReverse)
     {
@@ -52,7 +52,7 @@ void turn_on_led(bool isReverse, bool led_existing, int rotate_count){
          digitalWrite(j, HIGH);
          delay(500);
 
-         digitalWrite(j, led_existing);
+         digitalWrite(j, isPersistent);
       }
     }
 
@@ -63,7 +63,7 @@ void turn_on_led(bool isReverse, bool led_existing, int rotate_count){
         digitalWrite(j, HIGH);
         delay(500);
     
-        digitalWrite(j, led_existing);
+        digitalWrite(j, isPersistent);
       }
     }
 

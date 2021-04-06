@@ -44,7 +44,7 @@ void setup() {
       if(is_run){
         temp = rand() % 10;
         display_number(temp);
-        delay(500);
+        delay(100);
       }
 
 

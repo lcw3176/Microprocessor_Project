@@ -6,7 +6,6 @@
 
 LiquidCrystal lcd(22, 23, 24, 25, 26, 27);
 
-int len = 0;
 int cursorCol = 0;
 int cursorRow = 0;
 
@@ -21,7 +20,7 @@ void loop() {
   
   if(Serial.available())
   {
-    len = Serial.available();
+    int len = Serial.available();
     
     data = (char *)malloc(sizeof(char) * len);
     Serial.readBytes(data, len); 

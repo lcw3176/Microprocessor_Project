@@ -16,13 +16,12 @@ void setup() {
 
 
 void loop() {
-  char* data;
   
   if(Serial.available())
   {
     int len = Serial.available();
     
-    data = (char *)malloc(sizeof(char) * len);
+    char* data = (char *)malloc(sizeof(char) * len);
     Serial.readBytes(data, len); 
     Serial.println(data);
     

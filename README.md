@@ -20,6 +20,64 @@
 * 서버: Java Spring [WhoAreYou_Spring](https://github.com/lcw3176/WhoAreYou_Spring)
 * 어플리케이션: C# Xamarin [WhoAreYou_Xamarin](https://github.com/lcw3176/WhoAreYou_Xamarin)
 * DB: MySQL
+<details>
+<summary>user 테이블</summary>
+<div markdown="1">
+<pre>
+<code>
+
+    create table user(
+    idx int primary key auto_increment,
+    email varchar(40) not null unique,
+    password varchar(64) not null
+    );
+
+</pre>
+</code>
+</div>
+</details>
+
+<details>
+<summary>device 테이블</summary>
+<div markdown="1">
+<pre>
+<code>
+
+  create table device(
+  idx int primary key auto_increment,
+  name varchar(30) not null,
+  user_idx int,
+  foreign key(user_idx)
+  references user(idx)
+  on update cascade
+  on delete cascade);
+
+</pre>
+</code>
+</div>
+</details>
+
+<details>
+<summary>log 테이블</summary>
+<div markdown="1">
+<pre>
+<code>
+
+  create table log(
+  idx int primary key auto_increment,
+  time timestamp on update current_timestamp default current_timestamp not null,
+  state int not null,
+  device_idx int,
+  foreign key(device_idx)
+  references device(idx)
+  on update cascade
+  on delete cascade);
+
+</pre>
+</code>
+</div>
+</details>
+
 #### 작동 방식
 1. 어플을 통해 회원가입을 한다.
 2. 블루투스를 통해 장치와 연결 후, 와이파이 연결을 세팅한다.

@@ -21,6 +21,7 @@
 #### 개발 환경
 * 서버: Java Spring [WhoAreYou_Spring](https://github.com/lcw3176/WhoAreYou_Spring)
 * 어플리케이션: C# Xamarin [WhoAreYou_Xamarin](https://github.com/lcw3176/WhoAreYou_Xamarin)
+* 임베디드: C++ ATmega2560 [WhoAreYou_ATmega2560](https://github.com/lcw3176/WhoAreYou_ATmega2560)
 
 #### 작동 방식
 1. 어플을 통해 회원가입을 한다.

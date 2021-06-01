@@ -10,13 +10,12 @@
 
 # Team Project (Who Are You)
 #### 장치 설명
-- 누군가 이 기계가 부착된 문이나 서랍을 열면 알람을 보내주는 장치(사진 전송도 계획중, 될지는 모르겠다.)
+- 누군가 이 기계가 부착된 문이나 서랍을 열면 알람을 보내주는 장치
 
 #### 필요한 부품
 * MC-38 자석 센서
 * HC-06 블루투스 센서
 * ESP8266 와이파이 모듈
-* 카메라 모듈 (계획)
 
 #### 개발 환경
 * 서버: Java Spring [WhoAreYou_Spring](https://github.com/lcw3176/WhoAreYou_Spring)

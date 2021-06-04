@@ -12,10 +12,12 @@
 #### 장치 설명
 - 누군가 이 기계가 부착된 문이나 서랍을 열면 알람을 보내주는 장치
 
+#### 작동 영상
+- https://www.youtube.com/watch?v=a5a6oeBi8YY
 #### 필요한 부품
 * MC-38 자석 센서
 * HC-06 블루투스 센서
-* ESP8266 와이파이 모듈
+* ESP8266 ESP-01 와이파이 모듈
 
 #### 개발 환경
 * 서버: Java Spring [WhoAreYou_Spring](https://github.com/lcw3176/WhoAreYou_Spring)

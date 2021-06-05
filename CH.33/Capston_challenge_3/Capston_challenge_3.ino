@@ -123,7 +123,7 @@ void beepBuzzer()
   digitalWrite(buzzer, buzzer_state);
   buzzer_state = !buzzer_state;
 
-  if (stop_count >= 4)
+  if (stop_count > 4)
   {
     stop_count = 0;
     MsTimer2::stop();

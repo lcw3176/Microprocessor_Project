@@ -44,10 +44,18 @@ void loop() {
 
 }
 
+int isBusy_count = 0;
 
 void switchEvent() {
   int state = digitalRead(switch_input);
+  isBusy_count++;
 
+  if(isBusy_count >= 2)
+  {
+    isBusy_count--;
+    return;  
+  }
+  
   // FALLING
   if (!state)
   {
@@ -114,7 +122,8 @@ void switchEvent() {
     MsTimer2::set(500, beepBuzzer);
     MsTimer2::start();
   }
-
+  
+  isBusy_count--;
 }
 
 void beepBuzzer()

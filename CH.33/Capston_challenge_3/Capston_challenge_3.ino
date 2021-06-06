@@ -122,7 +122,8 @@ void switchEvent() {
     MsTimer2::set(500, beepBuzzer);
     MsTimer2::start();
   }
-  
+
+  delayMicroseconds(1000);
   isBusy_count--;
 }
 

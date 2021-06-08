@@ -8,20 +8,20 @@
 #define trigger 10
 #define servoPin 11
 
-int interrupt_count = 0;
+volatile int interrupt_count = 0;
 
-int led_pwm = 0;
-bool led_pwm_state = true; // true: 정방향 , false: 역방향
+volatile int led_pwm = 0;
+volatile bool led_pwm_state = true; // true: 정방향 , false: 역방향
 
-bool led_twinkle_state = true;
+volatile bool led_twinkle_state = true;
 
 Servo servo;
-int angle = 0;
-int maxAngle = 0;
-int offset = 0;
+volatile int angle = 0;
+volatile int maxAngle = 0;
+volatile int offset = 0;
 
-int stop_count = 0;
-bool buzzer_state = true;
+volatile int stop_count = 0;
+volatile bool buzzer_state = true;
 
 
 void setup() {
@@ -44,21 +44,15 @@ void loop() {
 
 }
 
-int isBusy_count = 0;
+volatile bool isBusy = false;
 
 void switchEvent() {
   int state = digitalRead(switch_input);
-  isBusy_count++;
-
-  if(isBusy_count >= 2)
-  {
-    isBusy_count--;
-    return;  
-  }
-  
+  Serial.println(isBusy);
   // FALLING
-  if (!state)
+  if (!state && !isBusy)
   {
+    isBusy = true;
     if (interrupt_count >= 4)
     {
       interrupt_count = 0;
@@ -116,15 +110,18 @@ void switchEvent() {
   }
 
   // RISING
-  if (state && interrupt_count == 4)
+  if (state)
   {
-    digitalWrite(led, HIGH);
-    MsTimer2::set(500, beepBuzzer);
-    MsTimer2::start();
-  }
+    isBusy = false;
+    
+    if(interrupt_count == 4)
+    {
+      digitalWrite(led, HIGH);
+      MsTimer2::set(500, beepBuzzer);
+      MsTimer2::start();
+    }
 
-  delayMicroseconds(1000);
-  isBusy_count--;
+  }
 }
 
 void beepBuzzer()

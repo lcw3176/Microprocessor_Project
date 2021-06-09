@@ -3,7 +3,7 @@
 #include <MsTimer2.h>
 
 #define buzzer 22
-long cnt = 0;
+volatile long cnt = 0;
 bool buzzer_state = true;
 char buzzer_count = 0;
 
@@ -23,6 +23,13 @@ void setup() {
 void counterCallBack()
 {
   cnt++;
+
+  if(cnt % 10000 == 0)
+  {
+    Serial.println(cnt);
+    MsTimer2::set(500, buzzerBeep);
+    MsTimer2::start();
+  }
 }
 
 void buzzerBeep()
@@ -33,6 +40,7 @@ void buzzerBeep()
 
   if(buzzer_count >= 2)
   {
+    Serial.println("buzzer stop");
     buzzer_count = 0;
     MsTimer2::stop();
   }
@@ -42,11 +50,5 @@ void loop() {
 //  Serial.println(cnt);
   lcd.print(cnt);
   lcd.setCursor(0, 0);
-  
-  if(cnt % 10000 == 0)
-  {
-    Serial.println(cnt);
-    MsTimer2::set(1000, buzzerBeep);
-    MsTimer2::start();
-  }
+ 
 }

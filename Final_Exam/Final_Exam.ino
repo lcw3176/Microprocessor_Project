@@ -27,21 +27,21 @@ void setup() {
 }
 
 void loop() {
- long cm = getDistanceFromSensor();
+   long cm = getDistanceFromSensor();
+  
+   if(cm <= 20)
+   {
+    digitalWrite(led_one, HIGH);
+    delay(2000);
+    digitalWrite(led_one, LOW);
+   }
+  
+   else
+   {
+    digitalWrite(led_one, HIGH);
+   }
 
- if(cm <= 20)
- {
-  digitalWrite(led_one, HIGH);
-  delay(2000);
-  digitalWrite(led_one, LOW);
- }
-
- else
- {
-  digitalWrite(led_one, HIGH);
- }
-
- delay(2000);
+   delay(2000);
 }
 
 void callBack()

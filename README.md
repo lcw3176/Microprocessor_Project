@@ -1,12 +1,14 @@
 # Microprocessor_Project
 챌린지 소스코드 관리
 
-## 개발 환경
+<details>
+<summary>1학기</summary>
+
+### 개발 환경
 * MicroController: ATmega2560
 * IDE: Sketch
 
-## 1학기
-### 예상 진행 기간
+### 진행 기간
 * 21.03 ~ 21.07
 
 ## Team Project (Who Are You)
@@ -30,6 +32,8 @@
 2. 블루투스를 통해 장치와 연결 후, 와이파이 연결을 세팅한다.
 3. 자석이 떨어지면 장치는 서버로 알림을 보내고, 해당 유저에게 전송한다.(WebSocket)
 4. 유저의 핸드폰에 등록된 Notification을 통해 알람이 울린다.
+
+</details>
 
 ## 2학기
 ### 예상 진행 기간

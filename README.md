@@ -7,6 +7,8 @@
 ### 개발 환경
 * MicroController: ATmega2560
 * IDE: Sketch
+* Interrupt/Timer, I2C
+* LCD, WiFi, Bluetooth
 
 ### 진행 기간
 * 21.03 ~ 21.07
@@ -36,5 +38,11 @@
 </details>
 
 ## 2학기
+### 개발 환경
+* MicroController: ATmega2560
+* IDE: Sketch
+
 ### 예상 진행 기간
 * 21.09 ~ 21.12
+
+

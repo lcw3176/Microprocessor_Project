@@ -7,7 +7,7 @@
 ### 개발 환경
 * MicroController: ATmega2560
 * IDE: Sketch
-* Interrupt/Timer, I2C
+* Interrupt / Timer, I2C
 * LCD, WiFi, Bluetooth
 
 ### 진행 기간
@@ -41,6 +41,7 @@
 ### 개발 환경
 * MicroController: ATmega2560
 * IDE: Sketch
+* RTC Module, Step Motor, Sound Sensor, Joystick Sensor
 
 ### 예상 진행 기간
 * 21.09 ~ 21.12

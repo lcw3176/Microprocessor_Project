@@ -5,8 +5,10 @@
 #define IN3 26
 #define IN4 28
 
-Stepper motor(64, IN1, IN2, IN3, IN4);
-int steps = 4096;
+int steps = 64;
+
+Stepper motor(steps, IN4, IN2, IN3, IN1);
+
 
 void setup() {
   for(int i = IN1; i <= IN4; i+=2){
@@ -18,8 +20,15 @@ void setup() {
 }
 
 void loop() {
-  motor.step(steps);
+  for(int i = 0; i < 64; i++){
+    motor.step(steps);
+  }
+
   delay(3000);
-  motor.step(-steps);
+  
+  for(int i = 0; i < 64; i++){
+    motor.step(-steps);
+  }
+  
   delay(3000);
 }

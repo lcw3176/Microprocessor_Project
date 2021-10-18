@@ -1,5 +1,4 @@
 #include<Stepper.h>
-#include <MsTimer2.h>
 
 #define IN1 22
 #define IN2 24
@@ -9,7 +8,7 @@
 #define echo 9
 #define trigger 10
 
-Stepper motor(64, IN1, IN2, IN3, IN4);
+Stepper motor(64, IN4, IN2, IN3, IN1);
 int step_half = 32;
 int step_count = 0;
 int step_level = 64;
@@ -60,7 +59,7 @@ void loop() {
   }
 
   if(!isRepeat && isReverse){
-    motor.step(step_level);
+    motor.step(-step_level);
   }
 }
 

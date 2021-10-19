@@ -1,15 +1,19 @@
 #include<Stepper.h>
 
-#define IN1 22
-#define IN2 24
-#define IN3 26
-#define IN4 28
+#define IN1 24
+#define IN2 26
+#define IN3 28
+#define IN4 30
 
-#define echo 9
-#define trigger 10
+#define echo 8
+#define trigger 9
 
-Stepper motor(64, IN4, IN2, IN3, IN1);
-int step_half = 32;
+#define led_one 32
+#define led_two 34
+#define led_three 36
+
+Stepper motor(64, IN1, IN3, IN2, IN4);
+int step_half = 16;
 int step_count = 0;
 int step_level = 64;
 
@@ -17,27 +21,39 @@ bool isReverse = false;
 bool isRepeat = false;
 
 void setup() {
-  for(int i = IN1; i <= IN4; i+=2){
+  Serial.begin(9600);
+
+  pinMode(echo, INPUT);
+  pinMode(trigger, OUTPUT);
+  for(int i = IN1; i <= led_three; i+=2){
     pinMode(i, OUTPUT);
   }
 
-  motor.setSpeed(100);
+  motor.setSpeed(300);
 }
 
 void loop() {
   long distance = getDistanceFromSensor();
+  Serial.println(distance);
+
   if(distance < 10){
     isRepeat = true;
+    
+    display_led(led_one);
   }
 
   else if(distance >= 10 && distance < 30){
     isRepeat = false;
     isReverse = false;
+    
+    display_led(led_two);
   }
 
   else{
     isRepeat = false;
-    isReverse = true;    
+    isReverse = true; 
+
+    display_led(led_three);   
   }
 
   if(isRepeat){
@@ -63,6 +79,14 @@ void loop() {
   }
 }
 
+void display_led(int pos)
+{
+  for(int i = led_one; i <= led_three; i++){
+    digitalWrite(i, LOW);
+  }
+
+  digitalWrite(pos, HIGH);
+}
 
 long getDistanceFromSensor()
 {

@@ -1,11 +1,12 @@
 #include<Stepper.h>
 
-#define IN1 22
-#define IN2 24
-#define IN3 26
-#define IN4 28
+#define IN1 24
+#define IN2 26
+#define IN3 28
+#define IN4 30
 
 int steps = 64;
+int cycle = 32;
 
 Stepper motor(steps, IN1, IN3, IN2, IN4);
 
@@ -15,18 +16,17 @@ void setup() {
     pinMode(i, OUTPUT);
   }
 
-  motor.setSpeed(100);
-
+  motor.setSpeed(300);
 }
 
 void loop() {
-  for(int i = 0; i < 64; i++){
+  for(int i = 0; i < cycle; i++){
     motor.step(steps);
   }
 
   delay(3000);
   
-  for(int i = 0; i < 64; i++){
+  for(int i = 0; i < cycle; i++){
     motor.step(-steps);
   }
   

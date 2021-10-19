@@ -7,7 +7,7 @@
 
 int steps = 64;
 
-Stepper motor(steps, IN4, IN2, IN3, IN1);
+Stepper motor(steps, IN1, IN3, IN2, IN4);
 
 
 void setup() {

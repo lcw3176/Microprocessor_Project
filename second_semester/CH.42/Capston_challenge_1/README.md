@@ -1,6 +1,6 @@
 # Capston Challenge 1
 ## 작동 모습
-- 상상 코딩함. 확인 필요
+![GIF](https://user-images.githubusercontent.com/59993347/137873800-96d90797-8244-4dc9-b888-a8ff71fbb59c.gif)
 
 ## 기록 사항
 - 28BYJ-48 모터가 데이터 시트와 다른 경우가 종종 있는 듯 하다

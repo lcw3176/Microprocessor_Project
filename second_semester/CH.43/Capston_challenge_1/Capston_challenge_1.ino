@@ -149,8 +149,9 @@ void fnd(int n) // 숫자 출력 함수
 }
 
 void generate_x(int value){
-  int mapped_pin = map(value, 0, 1023, LED_LEFT, LED_RIGHT);
-
+  Serial.println(value);
+  int mapped_pin = map(value, 0, 1000, LED_LEFT, LED_RIGHT);
+  Serial.println(mapped_pin);
   for(int i = LED_LEFT; i <= LED_RIGHT; i++){
     digitalWrite(i, LOW); 
   }
@@ -177,7 +178,7 @@ void setup() {
   for(int i = LED_LEFT; i <= DOT; i++){
     pinMode(i, OUTPUT);
   }
-
+  Serial.begin(9600);
   digitalWrite(LED_MID, HIGH);
   fnd(4);
  

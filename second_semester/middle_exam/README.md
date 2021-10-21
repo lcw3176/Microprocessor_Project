@@ -10,7 +10,7 @@
 #define IN2 24
 #define IN3 26
 #define IN4 28
-#define SWITCH 30
+#define SWITCH 18
 
 int steps = 64;
 volatile bool isRun = false;

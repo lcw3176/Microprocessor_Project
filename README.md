@@ -46,4 +46,16 @@
 ### 예상 진행 기간
 * 21.09 ~ 21.12
 
+## Team Project (Guitar Reader)
+### 장치 설명
+- 기타를 연주하면 음계 분석 후 기록하는 장치
+
+### 작동 영상
+
+### 필요한 부품
+- 사운드 센서 (OPA344 모듈)
+
+### 개발 환경
+- 응용 프로그램: C# WPF [GuitarReader_Cs](https://github.com/lcw3176/GuitarReader_Cs)
+- 임베디드: C++ ATmega2560 [GuitarReader_Atmega2560](https://github.com/lcw3176/GuitarReader_Atmega2560)
 

@@ -59,3 +59,9 @@
 - 응용 프로그램: C# WPF [GuitarReader_Cs](https://github.com/lcw3176/GuitarReader_Cs)
 - 임베디드: C++ ATmega2560 [GuitarReader_Atmega2560](https://github.com/lcw3176/GuitarReader_Atmega2560)
 
+### 작동 방식
+1. 센서를 근처에 위치시킨 후 기타를 연주한다
+2. 아두이노에서 센서로 들어온 소리를 분석한다
+3. 해당하는 주파수를 응용 프로그램에게 넘겨준다
+4. 프로그램에서 해당하는 음계와 기타 줄의 위치를 분석 후, 저장한다
+

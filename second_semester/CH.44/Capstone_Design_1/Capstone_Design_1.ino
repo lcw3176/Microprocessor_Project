@@ -3,12 +3,13 @@
 #define ledTwo 26
 #define buzzer 28
 
-const int clapInterval = 500;
-volatile unsigned long millsArr[2] = {0, 0};
+int samplingTime = 1500;
+volatile unsigned long mill = 0;
+volatile int count = 0;
 
-volatile bool singleClap = false;
-volatile bool doubleClap = false;
-volatile bool tripleClap = false;
+bool ledOneState = false;
+bool ledTwoState = false;
+bool buzzerState = false;
 
 void setup() {
   pinMode(sensor, INPUT);
@@ -21,28 +22,39 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(ledOne, singleClap);
-  digitalWrite(ledTwo, doubleClap);
-  digitalWrite(buzzer, tripleClap);
+  if(count){
+    while(millis() - mill < samplingTime){
+
+    }
+
+    switch(count){
+      case 1:
+        ledOneState = !ledOneState;
+        digitalWrite(ledOne, ledOneState);
+        break;
+      case 2:
+        ledTwoState = !ledTwoState;
+        digitalWrite(ledTwo, ledTwoState);
+        break;
+      case 3:
+        buzzerState = !buzzerState;
+        digitalWrite(buzzer, buzzerState);
+        break;
+      default:
+        break;
+      }
+
+    count = 0;
+  }
 }
 
 void clapEvent(){
   
-  // 한번 박수
-  if(millis() - millsArr[0] > clapInterval){
-    singleClap = !singleClap;
+  // 중복 실행 방지
+  if(millis() - mill < 300){
+    return;
   }
   
-  // 두번 박수
-  if(millis() - millsArr[0] <= clapInterval){
-    millsArr[1] = millis();
-    doubleClap = !doubleClap;
-  } 
-
-  // 세번 박수
-  if(millis() - millsArr[1] <= clapInterval){
-    tripleClap = !tripleClap;
-  }
-  
-  millsArr[0] = millis();
+  mill = millis();
+  count++;
 }

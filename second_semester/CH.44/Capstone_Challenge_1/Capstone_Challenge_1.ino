@@ -11,7 +11,11 @@ const int sampleWindow = 50;
 unsigned int sample;
 
 void setup() {
+  for(int i = ledOne; i <= ledEight; i += 2){
+    pinMode(i, OUTPUT);
+  }
   Serial.begin(9600);
+  analogReference(EXTERNAL); // 3.3v 사용
 }
 
 void loop() {
@@ -22,7 +26,7 @@ void loop() {
   unsigned int signalMin = 1024;
 
   while(millis() - startMillis < sampleWindow){
-    sample = analogRead(A1);
+    sample = analogRead(A0);
 
     if(sample > signalMax){
       signalMax = sample;
@@ -33,14 +37,22 @@ void loop() {
 
   peakToPeak = signalMax - signalMin;
   double volts = (peakToPeak * 3.3) / 1024;
+  int volume = (volts / 3.3) * 100; // 편하게 100단위로 변경
 
-  if(volts > 1.0){
-    for(int i = ledOne; i <= ledEight; i += 2){
+  if(volume > 5){
+    volume *= 2; // 임의로 볼륨 증폭
+
+    Serial.println(volume);
+    for(int i = ledEight; i >= ledOne; i -= 2){
       digitalWrite(i, LOW); 
     }
     
-    for(int i = ledOne; i <= map(volts, 0, 3.3, ledOne, ledEight); i += 2){
+    for(int i = ledOne; i <= map(volume, 0, 100, ledOne, ledEight); i += 2){
       digitalWrite(i, HIGH);  
+    }
+  } else{
+    for(int i = ledEight; i >= ledOne; i -= 2){
+      digitalWrite(i, LOW); 
     }
   }
 }

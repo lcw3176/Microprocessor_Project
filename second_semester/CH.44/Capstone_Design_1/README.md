@@ -1,4 +1,4 @@
-# Capstop Design 1
+# Capstone Design 1
 ## 작동모습
 - 혼자 촬영이 힘들어서 박수 소리 녹음 후 재생
 ### 박수 한번

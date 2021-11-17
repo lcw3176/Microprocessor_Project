@@ -41,7 +41,7 @@
 ### 개발 환경
 * MicroController: ATmega2560
 * IDE: Sketch
-* RTC Module, Step Motor, Sound Sensor, Joystick Sensor
+* RTC Module, Step Motor, Sound Sensor, Joystick Sensor, RFID, Dot Matrix
 
 ### 예상 진행 기간
 * 21.09 ~ 21.12

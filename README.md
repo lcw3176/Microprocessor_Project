@@ -18,7 +18,8 @@
 - 누군가 이 기계가 부착된 문이나 서랍을 열면 알람을 보내주는 장치
 
 ### 작동 영상
-- https://www.youtube.com/watch?v=a5a6oeBi8YY
+<iframe width="640" height="360" src="https://www.youtube.com/embed/a5a6oeBi8YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### 필요한 부품
 * MC-38 자석 센서
 * HC-06 블루투스 센서

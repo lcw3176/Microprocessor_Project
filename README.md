@@ -19,9 +19,11 @@
 
 ### 작동 영상
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/a5a6oeBi8YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+<div>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/a5a6oeBi8YY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
+- https://www.youtube.com/watch?v=a5a6oeBi8YY
 ### 필요한 부품
 * MC-38 자석 센서
 * HC-06 블루투스 센서

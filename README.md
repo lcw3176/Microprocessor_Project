@@ -51,6 +51,7 @@
 - 기타를 연주하면 음계 분석 후 기록하는 장치
 
 ### 작동 영상
+- https://www.youtube.com/watch?v=zB0uJF3MIWw
 
 ### 필요한 부품
 - 사운드 센서 (OPA344 모듈)

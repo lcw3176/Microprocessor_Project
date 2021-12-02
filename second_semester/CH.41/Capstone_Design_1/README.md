@@ -5,4 +5,6 @@
 - 스위치를 누를때마다 모드가 바뀜
 
 ## 작동 모습
+- 주문한 부품 불량으로 인하여 시뮬레이션으로 대체
+
 ![Capston_challenge_2](https://user-images.githubusercontent.com/59993347/134616154-4a1d1ae0-301a-4e60-9453-5a1addf3d37f.gif)

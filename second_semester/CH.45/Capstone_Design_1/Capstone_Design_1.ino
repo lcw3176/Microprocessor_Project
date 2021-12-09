@@ -1,9 +1,10 @@
 #include <SPI.h>
 #include <MFRC522.h>
+#include <TimerOne.h>
 
 #define RST_PIN 49
 #define SS_PIN 53
-#define maxUser 4
+#define maxUser 2
 #define uidMaxSize 10 // 라이브러리 까보니까 4, 7, 10 중 하나라고 써져 있음.
 
 #define ledA 32
@@ -23,10 +24,15 @@
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 bool isFull = false;
-char userCount = 0;
-byte uidArr[maxUser][uidMaxSize] = {-1};
+int userCount = 0;
+int uidArr[maxUser][uidMaxSize] = {-1};
+volatile int displayNumber = 0;
 
 void setup() {
+  for(int i = 22; i <= 33; i++){
+    pinMode(i, OUTPUT);
+  }
+  
   Serial.begin(9600);
   SPI.begin();
 
@@ -34,33 +40,33 @@ void setup() {
   
   ShowReaderDetails();
   Serial.println("Scan PICC to see UID, type, and data blocks...");
+
+   Timer1.initialize(10000); 
+   Timer1.attachInterrupt(display_fnd);
+    
 }
 
 void loop() {
-  if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()){
-    return;
-  }
-
-  if(!isFull){
-    registerUser();
-    display_fnd(userCount);
-  } else {
-    char userInfo = getUserInfo();
-    
-    display_fnd(userInfo);
-    Serial.print(userInfo);
-    Serial.println("번 사용자의 카드입니다.");
+  
+  if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()){
+    if(!isFull){
+      registerUser();
+    } else {
+      displayNumber = getUserInfo();
+      Serial.print(displayNumber);
+      Serial.println("번 사용자의 카드입니다.");
+    }
   }
 }
 
 void registerUser(){
-  char index = userCount;
+  int index = userCount;
 
   // uid 중복 등록 여부 체크
   if(index != 0){
     bool isSame = true;
     
-    for(char i = 0; i < index; i++){
+    for(int i = 0; i < index; i++){
       
        for(byte j = 0; j < mfrc522.uid.size; j++){
         if(uidArr[i][j] != mfrc522.uid.uidByte[j]){
@@ -86,21 +92,23 @@ void registerUser(){
 
   userCount++;
 
-  if(userCount == maxUser){
+  if(userCount > maxUser){
     isFull = true;
     Serial.println("사용자 등록 종료");
   } else{
     Serial.print(userCount);
     Serial.println("번 사용자 등록 완료");
   }
+
+  displayNumber = userCount;
 }
 
-char getUserInfo(){
-  for(char i = 0; i < maxUser; i++){
+int getUserInfo(){
+  for(int i = 0; i < maxUser; i++){
     bool isSame = true;
     
     for(byte j = 0; j < mfrc522.uid.size; j++){
-      if(uidArr[i][j] != mfrc522.uid.uidByte[i]){
+      if(uidArr[i][j] != mfrc522.uid.uidByte[j]){
         isSame = false;
         break;
       }
@@ -110,6 +118,8 @@ char getUserInfo(){
       return i + 1;
     }
   }
+
+  return 0;
 }
 
 void ShowReaderDetails() {
@@ -259,24 +269,24 @@ void fnd(int n) // 숫자 출력 함수
  }
 }
 
-void display_fnd(int number){
+void display_fnd(){
    digitalWrite(seg1,LOW);
-   fnd(number / 1000);
+   fnd(displayNumber / 1000);
    delay(5);
    digitalWrite(seg1,HIGH);
    
    digitalWrite(seg2,LOW);
-   fnd(number / 100);
+   fnd(displayNumber / 100);
    delay(5);
    digitalWrite(seg2,HIGH);
    
    digitalWrite(seg3,LOW);
-   fnd(number % 100 / 10);
+   fnd(displayNumber % 100 / 10);
    delay(5);
    digitalWrite(seg3,HIGH);
    
    digitalWrite(seg4,LOW);
-   fnd(number % 100 % 10);
+   fnd(displayNumber % 100 % 10);
    delay(5);
    digitalWrite(seg4,HIGH);
 }

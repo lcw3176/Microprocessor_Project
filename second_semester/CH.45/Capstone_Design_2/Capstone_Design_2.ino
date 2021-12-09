@@ -1,9 +1,10 @@
 #include <SPI.h>
 #include <MFRC522.h>
+#include <TimerOne.h>
 
 #define RST_PIN 49
 #define SS_PIN 53
-#define maxUser 4
+#define maxUser 2
 #define uidMaxSize 10 
 
 
@@ -23,14 +24,21 @@
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 bool isFull = false;
-char userCount = 0;
+int userCount = 0;
 byte uidArr[maxUser][uidMaxSize] = {-1};
+volatile int displayInfo = -1;
+String displayStr = "";
 
 void setup() {
+  for(int i = 22; i <= 33; i++){
+    pinMode(i, OUTPUT);
+  }
   Serial.begin(9600);
   SPI.begin();
 
   mfrc522.PCD_Init();
+  Timer1.initialize(10000); 
+  Timer1.attachInterrupt(display_fnd);
   
   ShowReaderDetails();
   Serial.println("Scan PICC to see UID, type, and data blocks...");
@@ -43,13 +51,14 @@ void loop() {
 
   if(!isFull){
     registerUser();
-    display_fnd(userCount);
   } else {
-    char userInfo = getUserInfo();
+    int userInfo = getUserInfo();
     
-    display_fnd(userInfo);
+    displayInfo = userInfo;
     Serial.print(userInfo);
-    Serial.println("번 사용자의 카드입니다.");
+    Serial.print("번 ");
+    Serial.print(displayStr);
+    Serial.println("사용자의 카드입니다.");
   }
 }
 
@@ -60,7 +69,7 @@ void registerUser(){
   if(index != 0){
     bool isSame = true;
     
-    for(char i = 0; i < index; i++){
+    for(int i = 0; i < index; i++){
       
        for(byte j = 0; j < mfrc522.uid.size; j++){
         if(uidArr[i][j] != mfrc522.uid.uidByte[j]){
@@ -86,21 +95,25 @@ void registerUser(){
 
   userCount++;
 
-  if(userCount == maxUser){
+  if(userCount > maxUser){
     isFull = true;
     Serial.println("사용자 등록 종료");
+    displayInfo = userCount - 1;
   } else{
     Serial.print(userCount);
     Serial.println("번 사용자 등록 완료");
+    displayInfo = userCount;
   }
+
+  
 }
 
-char getUserInfo(){
-  for(char i = 0; i < maxUser; i++){
+int getUserInfo(){
+  for(int i = 0; i < maxUser; i++){
     bool isSame = true;
     
     for(byte j = 0; j < mfrc522.uid.size; j++){
-      if(uidArr[i][j] != mfrc522.uid.uidByte[i]){
+      if(uidArr[i][j] != mfrc522.uid.uidByte[j]){
         isSame = false;
         break;
       }
@@ -110,6 +123,8 @@ char getUserInfo(){
       return i + 1;
     }
   }
+
+  return 0;
 }
 
 void ShowReaderDetails() {
@@ -134,45 +149,47 @@ void ShowReaderDetails() {
 }
 
 
-void display_fnd(int userInfo){
+void display_fnd(){
   String sentence = "";
   
-  switch(userInfo){
+  switch(displayInfo){
     case 1:
       sentence = "apple";
       break;
     case 2:
-      sentence = "mango";
+      sentence = "banana";
       break;
     case 3:
-      sentence = "banana";
+      sentence = "mango";
       break;
     case 4:
       sentence = "orange";
       break;
     default:
-      sentence = "error";
+      sentence = "none";
       break;
   }
-  
+
+  displayStr = sentence;
+
    digitalWrite(seg1,LOW);
    charfnd(sentence[0]);
-   delay(5);
+   delay(1);
    digitalWrite(seg1,HIGH);
    
    digitalWrite(seg2,LOW);
    charfnd(sentence[1]);
-   delay(5);
+   delay(1);
    digitalWrite(seg2,HIGH);
    
    digitalWrite(seg3,LOW);
    charfnd(sentence[2]);
-   delay(5);
+   delay(1);
    digitalWrite(seg3,HIGH);
    
    digitalWrite(seg4,LOW);
    charfnd(sentence[3]);
-   delay(5);
+   delay(1);
    digitalWrite(seg4,HIGH);
 }
 
@@ -270,7 +287,7 @@ void charfnd(char spell) // 문자 출력 함수
     digitalWrite(ledD, LOW);
     digitalWrite(ledE, HIGH);
     digitalWrite(ledF, HIGH);
-    digitalWrite(ledG, HIGH);
+    digitalWrite(ledG, LOW);
     digitalWrite(DOT, LOW);
     break;
     
@@ -305,6 +322,8 @@ void charfnd(char spell) // 문자 출력 함수
     digitalWrite(ledF, HIGH);
     digitalWrite(ledG, LOW);
     digitalWrite(DOT, LOW);
+    break;
+   default:
     break;
    }
 }
